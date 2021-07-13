@@ -3,19 +3,19 @@ package br.com.systemsgs.servicos.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "servico")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ModelCliente implements Serializable {
+public class ModelServico implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,14 +23,14 @@ public class ModelCliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "O Nome deve ser Informado!!!")
-    private String nome;
+    @NotBlank(message = "A Descrição deve ser Informada!!!")
+    private String descricao;
 
-    @NotBlank(message = "O CPF Deve ser Informado!!!")
-    @CPF(message = "CPF Inválido!!!")
-    private String cpf;
+    @NotNull(message = "O Valor deve ser Informado!!!")
+    private BigDecimal valor;
 
-    @Column(name = "data_cadastro")
-    private LocalDate dataCadastro;
+    @ManyToOne
+    @JoinColumn(name = "id_cliente")
+    private ModelCliente cliente;
 
 }
