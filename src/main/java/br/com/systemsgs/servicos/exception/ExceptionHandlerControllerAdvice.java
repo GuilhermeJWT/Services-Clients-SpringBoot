@@ -4,10 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RestControllerAdvice
 public class ExceptionHandlerControllerAdvice {
 
     @ExceptionHandler(GenerationExceptionClass.class)
@@ -28,5 +30,9 @@ public class ExceptionHandlerControllerAdvice {
 
     }
 
-
+    @ExceptionHandler(RecursoNaoEncontradoException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public RestApiErrorsException recursoNaoEncontradoException(RecursoNaoEncontradoException recursoNaoEncontrado) {
+        return new RestApiErrorsException(recursoNaoEncontrado.getMessage());
+    }
 }
