@@ -31,6 +31,6 @@ public class ModelCliente implements Serializable {
     private String cpf;
 
     @Column(name = "data_cadastro")
-    private LocalDate dataCadastro;
+    private LocalDate dataCadastro = LocalDate.now();
 
 }
